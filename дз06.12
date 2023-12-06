@@ -1,0 +1,147 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "5cf30254",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "position\n",
+      "Attack-SecondStriker          6.283615e+06\n",
+      "Attack-LeftWinger             5.287990e+06\n",
+      "midfield-CentralMidfield      4.592298e+06\n",
+      "midfield-AttackingMidfield    4.481125e+06\n",
+      "Attack-RightWinger            4.180823e+06\n",
+      "Attack Centre-Forward         4.102439e+06\n",
+      "midfield-DefensiveMidfield    3.845194e+06\n",
+      "Defender Centre-Back          3.610379e+06\n",
+      "Defender Left-Back            3.061958e+06\n",
+      "Defender Right-Back           2.985006e+06\n",
+      "midfield-LeftMidfield         2.041000e+06\n",
+      "midfield-RightMidfield        1.686275e+06\n",
+      "Goalkeeper                    1.650801e+06\n",
+      "Defender                      5.757576e+04\n",
+      "midfield                      4.466667e+04\n",
+      "Attack                        4.198113e+04\n",
+      "Name: current_value, dtype: float64\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Яка позиція на полі має найбільший вплив на суму трансферу футболіста в команді\n",
+    "import pandas as pd\n",
+    "data = pd.read_csv('final_data.csv') \n",
+    "average_transfer_by_position = data.groupby('position')['current_value'].mean().sort_values(ascending=False)\n",
+    "print(average_transfer_by_position)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "79bd0903",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "                   age     goals   assists  days_injured     award\n",
+      "age           1.000000 -0.034805 -0.024156      0.324267  0.363478\n",
+      "goals        -0.034805  1.000000  0.218266      0.037527  0.099617\n",
+      "assists      -0.024156  0.218266  1.000000      0.039431  0.091569\n",
+      "days_injured  0.324267  0.037527  0.039431      1.000000  0.255124\n",
+      "award         0.363478  0.099617  0.091569      0.255124  1.000000\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Чи є кореляція між віком гравців і їхньою грою: чи впливає вік на статистику голів, передач, травм та кількість нагород?\n",
+    "import matplotlib.pyplot as plt\n",
+    "correlation = data[['age', 'goals', 'assists', 'days_injured', 'award']].corr()\n",
+    "print(correlation)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "acd4af2c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Найвища сума трансферу: 180000000\n",
+      "Найнижча сума трансферу: 0\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Які були найвищі та найнижчі суми трансферів гравців у команді?\n",
+    "import pandas as pd\n",
+    "data = pd.read_csv('final_data.csv')\n",
+    "max_transfer = data['current_value'].max()\n",
+    "min_transfer = data['current_value'].min()\n",
+    "\n",
+    "print(\"Найвища сума трансферу:\", max_transfer)\n",
+    "print(\"Найнижча сума трансферу:\", min_transfer)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "8170bc72",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Середня кількість голів у команді: 0.12555431571759346\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Яка середня кількість голів, забитих футболістами, в команді?\n",
+    "import pandas as pd\n",
+    "data = pd.read_csv(\"final_data.csv\")\n",
+    "goals_column = data['goals']\n",
+    "average_goals = goals_column.mean()\n",
+    "print(\"Середня кількість голів у команді:\", average_goals)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "31fcc3d8",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
